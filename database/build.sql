@@ -27,7 +27,7 @@ CREATE DATABASE <database_name>;
 USE <database_name>;
 
 CREATE TABLE IF NOT EXISTS <tables> (
-    <table>_id VARCHAR(32) PRIMARY KEY ,
+    <table>_id VARCHAR(37) PRIMARY KEY ,
     ...
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP
