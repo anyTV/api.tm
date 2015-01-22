@@ -28,7 +28,7 @@ app.use(require('compression')());
 logger.log('verbose', 'Binding custom middlewares');
 app.use(require('anytv-node-cors')(config.CORS.join(',')));
 app.use(require(__dirname + '/config/router')(express.Router()));
-app.use(require('anytv-node-error-handler')());
+app.use(require('anytv-node-error-handler')(logger));
 
 app.listen(config.PORT);
 logger.log('info', 'Server listening on port', config.PORT);
