@@ -7,29 +7,29 @@
         start the column name with `date_` if type is DATETIME, e.g. `date_created`, `date_updated`, `date_expiration`
         use VARCHAR(37) as primary key for ID's exposed to the user
         use INT(11) AUTO_INCREMENT as primary key for ID's not exposed to the user
+        use the proper mysql engine Innodb or MyISAM
+        mind the column charset and table collation
         all tables should have an id (PRIMARY KEY), date_created and date_updated
             *table id will follow the this format :
                 `<singular form of table_name>_id` PRIMARY KEY VARCHAR(32) or INT(11) AUTO_INCREMENT
-
-            example:
-                CREATE TABLE users (
-                    user_id PRIMARY KEY VARCHAR(37),
-                    date_created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
-                    date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP
-                );
-        use the proper mysql engine Innodb or MyISAM
-        mind the column charset and table collation
+        see sample below:
 */
 
 
-DROP DATABASE IF EXISTS <database_name>;
-CREATE DATABASE <database_name>;
+DROP DATABASE IF EXISTS test;
+CREATE DATABASE test;
 
-USE <database_name>;
+USE test;
 
-CREATE TABLE IF NOT EXISTS <tables> (
-    <table>_id VARCHAR(37) PRIMARY KEY ,
-    ...
+CREATE TABLE IF NOT EXISTS users (
+    user_id VARCHAR(37) PRIMARY KEY ,
+    /*...*/
     date_created DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     date_updated DATETIME ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=MyISAM or Innodb;
+) ENGINE=MyISAM;
+
+INSERT INTO users VALUES (
+    'cf9fcb1f-8fea-499a-b58f-c69576a11cd5',
+    '2014-01-01 00:00:00',
+    NULL
+);

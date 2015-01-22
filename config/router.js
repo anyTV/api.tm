@@ -11,6 +11,7 @@ module.exports  = function (router) {
 
     router.del  = router.delete;
 
+    router.get('/user/:id', c.user.get_user);
 
     router.all ('*', function (req, res) {
         res.status(404)
