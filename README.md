@@ -15,6 +15,8 @@ Running the Application
 	npm start
 
 4. check http://localhost
+5. Update package.json repository link
+6. Update config/config.js
 
 
 Coding conventions
