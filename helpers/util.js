@@ -1,3 +1,4 @@
+'use strict';
 /**
     Utilities
 */
@@ -35,8 +36,9 @@ exports.random_string = function (i) {
         str = '',
         l = i || 32;
 
-    while (l--)
+    while (l--) {
         str += possible.charAt(~~(Math.random() * 62));
+    }
 
     return str;
 };
@@ -78,7 +80,7 @@ exports.generate_UUID = function () {
 
 
 exports.unique_short_string = function (n) {
-    return (+new Date * Math.random())
+    return (+new Date() * Math.random())
         .toString(36)
         .replace('.', '')
         .substring(0, n);
@@ -129,7 +131,7 @@ exports.split = function (a, n) {
 exports.slice = function (a, n) {
     var len = a.length,
         out = [],
-        number_of_slice = Math.ceil(len / n);
+        number_of_slice = Math.ceil(len / n),
         i = 0;
 
     while (number_of_slice--) {

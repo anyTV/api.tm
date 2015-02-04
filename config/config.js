@@ -1,3 +1,4 @@
+'use strict';
 
 var path = require('path'),
 
@@ -36,8 +37,8 @@ var path = require('path'),
 
 
 // set development as our default environment
-if (!process.env['NODE_ENV']) {
-    process.env['NODE_ENV'] = 'development';
+if (!process.env.NODE_ENV) {
+    process.env.NODE_ENV = 'development';
 }
 
-module.exports = extend(config, require(__dirname + '/env/' + process.env['NODE_ENV']));
+module.exports = extend(config, require(__dirname + '/env/' + process.env.NODE_ENV));

@@ -1,3 +1,5 @@
+'use strict';
+
 var cluster = require('cluster'),
     numCPUs = require('os').cpus().length,
     temp = numCPUs,
@@ -8,7 +10,7 @@ if (cluster.isMaster) {
 		console.log('Script to cluster is missing');
 	}
 
-	console.log(new Date);
+	console.log(new Date());
 
     while (temp--) {
         cluster.fork({cpu_number : temp});
@@ -21,7 +23,7 @@ else {
 cluster.on('exit', function (worker) {
 	worker.kill();
     if (++dead === numCPUs) {
-        console.log(new Date);
+        console.log(new Date());
         console.log('Everyone is dead');
         process.exit();
     }

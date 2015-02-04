@@ -1,3 +1,5 @@
+'use strict';
+
 var config = require(__dirname + '/../config/config'),
     mysql = require('anytv-node-mysql');
 
