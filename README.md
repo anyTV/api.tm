@@ -6,7 +6,13 @@ Running the Application
 
 1. Download Zip
 2. Extract to your project's folder
-3. Run this commands :
+3. Import database/schema.sql and database/seed.sql
+
+<!-- language:console -->
+	mysql -uroot < database/schema.sql
+	mysql -uroot < database/seed.sql
+
+4. Run this commands :
 
 <!-- language:console -->
     sudo npm i -g forever
@@ -14,9 +20,10 @@ Running the Application
     sudo npm i -g npm-check-updates
 	sudo npm start
 
-4. check http://localhost
-5. Update package.json repository link
-6. Update config/config.js
+5. check http://localhost
+6. Update package.json repository link
+7. Update config/config.js
+8. Don't forget tp.
 
 
 Coding conventions

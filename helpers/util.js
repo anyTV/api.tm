@@ -155,9 +155,15 @@ exports.extend = function (obj, source) {
     return obj;
 };
 
+
 exports.get_log_stream = function (dir) {
     var moment = require('moment'),
         fs = require('fs');
 
     return fs.createWriteStream(dir + '/access-' + moment().format('YYYY-MM-DD') + '.log', {flags: 'a'});
+};
+
+
+exports.clone = function (obj) {
+    return JSON.parse(JSON.stringify(obj));
 };
