@@ -30,3 +30,4 @@ Coding conventions
 ---------------------
 
   [Here](https://github.com/anyTV/JS-conventions)
+
