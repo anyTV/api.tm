@@ -9,10 +9,10 @@ Running the Application
 3. Run this commands :
 
 <!-- language:console -->
-    npm install forever -g
-    npm install nodemon -g
-    npm install
-	npm start
+    sudo npm i -g forever
+    sudo npm i -g nodemon
+    sudo npm i -g npm-check-updates
+	sudo npm start
 
 4. check http://localhost
 5. Update package.json repository link
