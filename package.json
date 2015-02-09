@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "npm-check-updates -u; npm install; nodemon server.js",
-    "test": "sudo make test",
+    "test": "make test",
     "dev-test": "mocha tests -R spec -t 5000 -s 0 --watch"
   },
   "repository": {

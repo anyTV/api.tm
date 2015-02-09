@@ -17,7 +17,7 @@ var path = require('path'),
     config = {
         APP_NAME : 'anyTV Node Boilerplate',
 
-        PORT : 80,
+        PORT : 3000,
 
         CORS : ['*'],
 
