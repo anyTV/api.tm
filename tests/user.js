@@ -2,10 +2,9 @@
 
 var should  = require('chai').should(),
     request = require('supertest'),
-    config,
+    config  = require(__dirname + '/../config/config'),
     api;
 
-config = require(__dirname + '/../config/config');
 require(__dirname + '/../server');
 api = request('http://localhost:' + config.PORT);
 
