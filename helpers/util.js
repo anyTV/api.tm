@@ -51,7 +51,7 @@ exports.random_string = function (i) {
  **/
 
 exports.generate_UUID = function () {
-    var UUID = (function() {
+    var UUID = (function () {
         var self = {},
             lut = [],
             i = 0;
@@ -61,15 +61,18 @@ exports.generate_UUID = function () {
         }
 
         self.generate = function () {
-            var d0 = Math.random() * 0xffffffff|0,
-                d1 = Math.random() * 0xffffffff|0,
-                d2 = Math.random() * 0xffffffff|0,
-                d3 = Math.random() * 0xffffffff|0;
+            var d0 = Math.random() * 0xffffffff | 0,
+                d1 = Math.random() * 0xffffffff | 0,
+                d2 = Math.random() * 0xffffffff | 0,
+                d3 = Math.random() * 0xffffffff | 0;
 
-            return lut[d0&0xff]+lut[d0>>8&0xff]+lut[d0>>16&0xff]+lut[d0>>24&0xff]+'-'+
-            lut[d1&0xff]+lut[d1>>8&0xff]+'-'+lut[d1>>16&0x0f|0x40]+lut[d1>>24&0xff]+'-'+
-            lut[d2&0x3f|0x80]+lut[d2>>8&0xff]+'-'+lut[d2>>16&0xff]+lut[d2>>24&0xff]+
-            lut[d3&0xff]+lut[d3>>8&0xff]+lut[d3>>16&0xff]+lut[d3>>24&0xff];
+            return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] +
+                '-' +
+                lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 &
+                    0xff] + '-' +
+                lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 &
+                    0xff] +
+                lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
         };
 
         return self;
@@ -103,8 +106,7 @@ exports.to_title_case = function (str) {
 
 exports.caps_first = function (string) {
     return string.charAt(0)
-            .toUpperCase()
-        + string.slice(1);
+        .toUpperCase() + string.slice(1);
 };
 
 
@@ -135,7 +137,7 @@ exports.slice = function (a, n) {
         i = 0;
 
     while (number_of_slice--) {
-        out.push(a.splice(i, n));
+        out.push(a.splice(0, n));
         i += n;
     }
 
@@ -148,7 +150,7 @@ exports.extend = function (obj, source) {
 
     for (prop in source) {
         if (source.hasOwnProperty(prop)) {
-           obj[prop] = source[prop];
+            obj[prop] = source[prop];
         }
     }
 
@@ -160,7 +162,9 @@ exports.get_log_stream = function (dir) {
     var moment = require('moment'),
         fs = require('fs');
 
-    return fs.createWriteStream(dir + '/access-' + moment().format('YYYY-MM-DD') + '.log', {flags: 'a'});
+    return fs.createWriteStream(dir + '/access-' + moment().format('YYYY-MM-DD') + '.log', {
+        flags: 'a'
+    });
 };
 
 

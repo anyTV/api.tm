@@ -7,7 +7,7 @@ var path = require('path'),
 
         for (prop in source) {
             if (source.hasOwnProperty(prop)) {
-               obj[prop] = source[prop];
+                obj[prop] = source[prop];
             }
         }
 
@@ -15,22 +15,22 @@ var path = require('path'),
     },
 
     config = {
-        APP_NAME : 'anyTV Node Boilerplate',
+        APP_NAME: 'anyTV Node Boilerplate',
 
-        PORT : 3000,
+        PORT: 3000,
 
-        CORS : ['*'],
+        CORS: ['*'],
 
-        UPLOAD_DIR : path.normalize(__dirname + '/../uploads/'),
-        VIEWS_DIR  : path.normalize(__dirname + '/../views'),
-        LOGS_DIR  : path.normalize(__dirname + '/../logs/'),
+        UPLOAD_DIR: path.normalize(__dirname + '/../uploads/'),
+        VIEWS_DIR: path.normalize(__dirname + '/../views'),
+        LOGS_DIR: path.normalize(__dirname + '/../logs/'),
 
 
-        DB : {
-            host : 'localhost',
-            user : 'root',
-            password : '',
-            database : 'test'
+        DB: {
+            host: 'localhost',
+            user: 'root',
+            password: '',
+            database: 'test'
         }
 
     };

@@ -9,8 +9,7 @@ exports.get_user = function (req, res, next) {
 
             mysql.open(config.DB)
                 .query(
-                    'SELECT * FROM users WHERE user_id = ? LIMIT 1;',
-                    [req.params.id],
+                    'SELECT * FROM users WHERE user_id = ? LIMIT 1;', [req.params.id],
                     send_response
                 )
                 .end();

@@ -3,13 +3,13 @@
     Last maintained : 2014-12-06 (rvnjl)
 **/
 
-var express     = require('express'),
+var express = require('express'),
     body_parser = require('body-parser'),
-    util        = require(__dirname + '/helpers/util'),
-    config      = require(__dirname + '/config/config'),
-    logger      = require('anytv-node-logger'),
+    util = require(__dirname + '/helpers/util'),
+    config = require(__dirname + '/config/config'),
+    logger = require('anytv-node-logger'),
 
-    app         = express();
+    app = express();
 
 logger.log('info', 'Starting', config.APP_NAME, 'on', config.ENV, 'environment');
 
@@ -20,10 +20,16 @@ app.set('view engine', 'jade');
 
 logger.log('verbose', 'Binding 3rd-party middlewares');
 
-app.use(require('morgan')('combined', {stream : util.get_log_stream(config.LOGS_DIR)}));
+app.use(require('morgan')('combined', {
+    stream: util.get_log_stream(config.LOGS_DIR)
+}));
 app.use(require('method-override')());
-app.use(body_parser.urlencoded({extended : false}));
-app.use(require('multer')({dest : config.UPLOAD_DIR}));
+app.use(body_parser.urlencoded({
+    extended: false
+}));
+app.use(require('multer')({
+    dest: config.UPLOAD_DIR
+}));
 app.use(require('compression')());
 
 logger.log('verbose', 'Binding custom middlewares');

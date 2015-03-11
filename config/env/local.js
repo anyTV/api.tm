@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-    ENV : 'local'
+    ENV: 'local'
 };
