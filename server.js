@@ -33,7 +33,7 @@ app.use(require('multer')({
 app.use(require('compression')());
 
 logger.log('verbose', 'Binding custom middlewares');
-app.use(require('anytv-node-cors')(config.CORS.join(',')));
+app.use(require('anytv-node-cors')(config.CORS));
 app.use(require(__dirname + '/config/router')(express.Router()));
 app.use(require('anytv-node-error-handler')(logger));
 
