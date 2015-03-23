@@ -19,7 +19,11 @@ var path = require('path'),
 
         PORT: 3000,
 
-        CORS: ['*'],
+        CORS :  {
+            allowed_headers : 'Access-Token, X-Requested-With, Content-Type, Accept',
+            allowed_origins : '*',
+            allowed_methods : 'GET, POST, PUT, OPTIONS, DELETE'
+        },
 
         UPLOAD_DIR: path.normalize(__dirname + '/../uploads/'),
         VIEWS_DIR: path.normalize(__dirname + '/../views'),
