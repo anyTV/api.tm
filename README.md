@@ -25,12 +25,12 @@ Running the application
   ```
 
 4. Run this commands :
-```sh
-sudo npm i -g forever
-sudo npm i -g nodemon
-sudo npm i -g npm-check-updates
-sudo npm start
-```
+  ```sh
+  sudo npm i -g forever
+  sudo npm i -g nodemon
+  sudo npm i -g npm-check-updates
+  sudo npm start
+  ```
 
 5. check http://localhost
 6. Update package.json repository link
