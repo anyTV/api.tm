@@ -45,7 +45,7 @@ Controllers are the heart of your application, as they determine how HTTP reques
 
 Here's a typical controller:
 
-```js
+```javascript
 // user.js
 
 var config = require(__dirname + '/config/config'),
@@ -94,7 +94,7 @@ exports.delete_user = function (req, res, next) {
 
 Detailed explanation:
 
-```
+```javascript
 var config = require(__dirname + '/config/config'),
 	util = require(__dirname + '/helpers/util'),
 	mysql = require('anytv-node-mysql'),
@@ -108,7 +108,7 @@ var config = require(__dirname + '/config/config'),
 
 
 
-```
+```javascript
 exports.update_user = function (req, res, next) {
 ```
 
@@ -117,7 +117,7 @@ exports.update_user = function (req, res, next) {
 - `res` also an object from express, use this object to respond to the request
 - `next` a function from express, use this to pass to the next middleware which is the error handler
 
-```
+```javascript
 	var data = util.get_data(['user_id'], ['first_name', 'last_name'], req.body),
 ```
 
@@ -126,7 +126,7 @@ exports.update_user = function (req, res, next) {
 - non-function variables are also declared first
 - new line after non-function variables to make it more readable
 
-```
+```javascript
 		start = function () {
 			var id;
 
@@ -152,7 +152,7 @@ exports.update_user = function (req, res, next) {
 - since variables are declared first and functions are assigned to variables, we thought of having `start` function to denote the start of the process
 - as much as possible there should be no more function inside this level except for `forEach`, `map`, `filter`, and `reduce`
 
-```
+```javascript
 		send_response = function (err, result) {
 			if (err) {
 				return next(err);
