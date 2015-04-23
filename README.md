@@ -19,10 +19,10 @@ Running the application
 1. Download Zip
 2. Extract to your project's folder
 3. Import `database/schema.sql` and `database/seed.sql`
-```sh
-mysql -uroot < database/schema.sql
-mysql -uroot < database/seed.sql
-```
+  ```sh
+  mysql -uroot < database/schema.sql
+  mysql -uroot < database/seed.sql
+  ```
 
 4. Run this commands :
 ```sh
