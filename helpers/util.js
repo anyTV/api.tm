@@ -160,11 +160,13 @@ exports.extend = function (obj, source) {
 
 exports.get_log_stream = function (dir) {
     var moment = require('moment'),
-        fs = require('fs');
+        fs = require('fs'),
+        proc_id = process.env.cpu_number || '';
 
-    return fs.createWriteStream(dir + '/access-' + moment().format('YYYY-MM-DD') + '.log', {
-        flags: 'a'
-    });
+    return fs.createWriteStream(
+        dir + '/access.' + proc_id + '.-' + moment().format('YYYY-MM-DD') + '.log',
+        {flags: 'a'}
+    );
 };
 
 
