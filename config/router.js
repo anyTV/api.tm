@@ -1,7 +1,4 @@
 'use strict';
-/**
-    Last maintained : 2014-12-15 (rvnjl)
-**/
 
 var importer = require('anytv-node-importer');
 
