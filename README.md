@@ -28,7 +28,6 @@ mysql -uroot < database/seed.sql
 ```sh
 sudo npm i -g forever
 sudo npm i -g nodemon
-sudo npm i -g npm-check-updates
 sudo npm start
 ```
 

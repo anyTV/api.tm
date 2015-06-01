@@ -1,43 +1,44 @@
 {
-    "name": "anytv-node-boilerplate",
-    "version": "0.0.1",
-    "description": "REST API backend boilerplate",
-    "main": "server.js",
-    "dependencies": {
-        "anytv-node-cors": "0.0.4",
-        "anytv-node-error-handler": "0.0.2",
-        "anytv-node-importer": "0.0.0",
-        "anytv-node-logger": "0.0.3",
-        "anytv-node-mysql": "0.0.14",
-        "body-parser": "^1.12.3",
-        "compression": "^1.4.3",
-        "cuddle": "0.0.43",
-        "express": "^4.12.3",
-        "method-override": "^2.3.2",
-        "moment": "^2.10.2",
-        "morgan": "^1.5.2",
-        "multer": "^0.1.8"
-    },
-    "scripts": {
-        "start": "npm-check-updates -u; npm install; nodemon server.js",
-        "test": "make test",
-        "dev-test": "mocha tests -R spec -t 5000 -s 0 --watch"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/anyTV/anytv-node-boilerplate"
-    },
-    "keywords": [
-        "freedom"
-    ],
-    "author": "any.TV",
-    "bugs": {
-        "url": "https://github.com/anyTV/anytv-node-boilerplate/issues"
-    },
-    "homepage": "https://github.com/anyTV/anytv-node-boilerplate",
-    "devDependencies": {
-        "chai": "^2.2.0",
-        "mocha": "^2.2.4",
-        "supertest": "^0.15.0"
-    }
+  "name": "anytv-node-boilerplate",
+  "version": "0.0.1",
+  "description": "REST API backend boilerplate",
+  "main": "server.js",
+  "dependencies": {
+    "anytv-node-cors": "latest",
+    "anytv-node-error-handler": "latest",
+    "anytv-node-importer": "latest",
+    "anytv-node-logger": "latest",
+    "anytv-node-mongo": "latest",
+    "anytv-node-mysql": "latest",
+    "body-parser": "latest",
+    "compression": "latest",
+    "cuddle": "latest",
+    "express": "latest",
+    "method-override": "latest",
+    "moment": "latest",
+    "morgan": "latest",
+    "multer": "latest"
+  },
+  "scripts": {
+    "start": "npm install && nodemon server.js",
+    "test": "make test",
+    "dev-test": "mocha tests -R spec -t 5000 -s 0 --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/anyTV/anytv-node-boilerplate"
+  },
+  "keywords": [
+    "freedom"
+  ],
+  "author": "any.TV",
+  "bugs": {
+    "url": "https://github.com/anyTV/anytv-node-boilerplate/issues"
+  },
+  "homepage": "https://github.com/anyTV/anytv-node-boilerplate",
+  "devDependencies": {
+    "chai": "latest",
+    "mocha": "latest",
+    "supertest": "latest"
+  }
 }
