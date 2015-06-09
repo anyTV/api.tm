@@ -21,7 +21,7 @@ exports.get_user = function (req, res, next) {
             }
 
             if (!result.length) {
-                return next('User not found');
+                return res.warn(404, 'User not found');
             }
 
             res.send(result[0]);

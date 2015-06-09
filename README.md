@@ -116,6 +116,7 @@ exports.update_user = function (req, res, next) {
 - `res` also an object from express, use this object to respond to the request
 - `next` a function from express, use this to pass to the next middleware which is the error handler
 
+
 ```javascript
 	var data = util.get_data(['user_id'], ['first_name', 'last_name'], req.body),
 ```
@@ -149,7 +150,7 @@ exports.update_user = function (req, res, next) {
 - `start` function is required for uniformity
 - the idea is to have the code be readable like a book, from top-to-bottom
 - since variables are declared first and functions are assigned to variables, we thought of having `start` function to denote the start of the process
-- as much as possible there should be no more function inside this level except for `forEach`, `map`, `filter`, and `reduce`
+- as much as possible there should be no more function inside this level except for `forEach`, `map`, `filter`, and `reduce`, if lodash is available, use it
 
 ```javascript
 		send_response = function (err, result) {
@@ -166,3 +167,6 @@ exports.update_user = function (req, res, next) {
 - `send_response` is common to be the last function to be executed
 - use `next` for passing errors
 - after all variable declarations, call `start`
+
+Notes:
+- use `res.warn(status, message)` or `res.warn(message)`  instead of `next(error)` of the server guy does not need to know the error like "user not found", etc
