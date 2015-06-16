@@ -48,7 +48,7 @@ Here's a typical controller:
 // user.js
 
 var config = require(__dirname + '/config/config'),
-	util = require(__dirname + '/helpers/util'),
+	util = require(__dirname + '/../helpers/util'),
 	mysql = require('anytv-node-mysql'),
 	moment = require('moment');
 
@@ -95,7 +95,7 @@ Detailed explanation:
 
 ```javascript
 var config = require(__dirname + '/config/config'),
-	util = require(__dirname + '/helpers/util'),
+	util = require(__dirname + '/../helpers/util'),
 	mysql = require('anytv-node-mysql'),
 	moment = require('moment');
 
