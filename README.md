@@ -47,7 +47,7 @@ Here's a typical controller:
 ```javascript
 // user.js
 
-var config = require(__dirname + '/config/config'),
+var config = require(__dirname + '/../config/config'),
 	util = require(__dirname + '/../helpers/util'),
 	mysql = require('anytv-node-mysql'),
 	moment = require('moment');
