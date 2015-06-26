@@ -47,8 +47,8 @@ Here's a typical controller:
 ```javascript
 // user.js
 
-var config = require(__dirname + '/config/config'),
-    util   = require(__dirname + '/helpers/util'),
+var config = require(__dirname + '/../config/config'),
+    util   = require(__dirname + '/../helpers/util'),
     mysql  = require('anytv-node-mysql'),
     moment = require('moment');
 
@@ -100,11 +100,10 @@ exports.delete_user = function (req, res, next) {
 Detailed explanation:
 
 ```javascript
-var config = require(__dirname + '/config/config'),
-    util   = require(__dirname + '/helpers/util'),
+var config = require(__dirname + '/../config/config'),
+    util   = require(__dirname + '/../helpers/util'),
     mysql  = require('anytv-node-mysql'),
     moment = require('moment');
-
 ```
 
 - The first part of the controller contains the config, helpers, and libraries to be used by the controller's functions
