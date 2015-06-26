@@ -48,41 +48,47 @@ Here's a typical controller:
 // user.js
 
 var config = require(__dirname + '/config/config'),
-	util = require(__dirname + '/helpers/util'),
-	mysql = require('anytv-node-mysql'),
-	moment = require('moment');
+    util   = require(__dirname + '/helpers/util'),
+    mysql  = require('anytv-node-mysql'),
+    moment = require('moment');
+
+
 
 exports.update_user = function (req, res, next) {
-	var data = util.get_data(['user_id'], ['first_name', 'last_name'], req.body),
+    var data = util.get_data(
+            ['user_id'],
+            ['first_name', 'last_name'],
+            req.body
+        ),
 
-		start = function () {
-			var id;
+        start = function () {
+            var id;
 
-			if (typeof data === 'string') {
-				return next(data);
-			}
+            if (typeof data === 'string') {
+                return next(data);
+            }
 
-			id = data.id;
-			delete data.id;
+            id = data.id;
+            delete data.id;
 
-			mysql.open(config.mysql_db)
-				.query(
-					'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
-					[id, data],
-					send_response
-				)
-				.end();
-		},
+            mysql.open(config.mysql_db)
+                .query(
+                    'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
+                    [id, data],
+                    send_response
+                )
+                .end();
+        },
 
-		send_response = function (err, result) {
-			if (err) {
-				return next(err);
-			}
+        send_response = function (err, result) {
+            if (err) {
+                return next(err);
+            }
 
-			res.send({message : 'User successfully updated'});
-		};
+            res.send({message: 'User successfully updated'});
+        };
 
-	start();
+    start();
 };
 
 
@@ -95,9 +101,9 @@ Detailed explanation:
 
 ```javascript
 var config = require(__dirname + '/config/config'),
-	util = require(__dirname + '/helpers/util'),
-	mysql = require('anytv-node-mysql'),
-	moment = require('moment');
+    util   = require(__dirname + '/helpers/util'),
+    mysql  = require('anytv-node-mysql'),
+    moment = require('moment');
 
 ```
 
@@ -118,7 +124,11 @@ exports.update_user = function (req, res, next) {
 
 
 ```javascript
-	var data = util.get_data(['user_id'], ['first_name', 'last_name'], req.body),
+    var data = util.get_data(
+            ['user_id'],
+            ['first_name', 'last_name'],
+            req.body
+        ),
 ```
 
 - it is common to use `data` as the variable to store the parameters given by the user
@@ -127,24 +137,24 @@ exports.update_user = function (req, res, next) {
 - new line after non-function variables to make it more readable
 
 ```javascript
-		start = function () {
-			var id;
+        start = function () {
+            var id;
 
-			if (typeof data === 'string') {
-				return next(data);
-			}
+            if (typeof data === 'string') {
+                return next(data);
+            }
 
-			id = data.id;
-			delete data.id;
+            id = data.id;
+            delete data.id;
 
-			mysql.open(config.mysql_db)
-				.query(
-					'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
-					[id, data],
-					send_response
-				)
-				.end();
-		},
+            mysql.open(config.mysql_db)
+                .query(
+                    'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
+                    [id, data],
+                    send_response
+                )
+                .end();
+        },
 ```
 
 - `start` function is required for uniformity
@@ -153,15 +163,15 @@ exports.update_user = function (req, res, next) {
 - as much as possible there should be no more function inside this level except for `forEach`, `map`, `filter`, and `reduce`, if lodash is available, use it
 
 ```javascript
-		send_response = function (err, result) {
-			if (err) {
-				return next(err);
-			}
+        send_response = function (err, result) {
+            if (err) {
+                return next(err);
+            }
 
-			res.send({message : 'User successfully updated'});
-		};
+            res.send({message: 'User successfully updated'});
+        };
 
-	start();
+    start();
 ```
 
 - `send_response` is common to be the last function to be executed
