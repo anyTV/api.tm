@@ -59,34 +59,34 @@ exports.update_user = function (req, res, next) {
             ['user_id'],
             ['first_name', 'last_name'],
             req.body
-        ),
+        );
 
-        start = function () {
-            var id;
+    function start () {
+        var id;
 
-            if (typeof data === 'string') {
-                return next(data);
-            }
+        if (typeof(data) === 'string') {
+            return next(data);
+        }
 
-            id = data.id;
-            delete data.id;
+        id = data.id;
+        delete data.id;
 
-            mysql.open(config.mysql_db)
-                .query(
-                    'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
-                    [id, data],
-                    send_response
-                )
-                .end();
-        },
+        mysql.open(config.mysql_db)
+            .query(
+                'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
+                [id, data],
+                send_response
+            )
+            .end();
+    }
 
-        send_response = function (err, result) {
-            if (err) {
-                return next(err);
-            }
+    function send_response (err, result) {
+        if (err) {
+            return next(err);
+        }
 
-            res.send({message: 'User successfully updated'});
-        };
+        res.send({message: 'User successfully updated'});
+    }
 
     start();
 };
@@ -136,24 +136,24 @@ exports.update_user = function (req, res, next) {
 - new line after non-function variables to make it more readable
 
 ```javascript
-        start = function () {
-            var id;
+    function start () {
+        var id;
 
-            if (typeof data === 'string') {
-                return next(data);
-            }
+        if (typeof(data) === 'string') {
+            return next(data);
+        }
 
-            id = data.id;
-            delete data.id;
+        id = data.id;
+        delete data.id;
 
-            mysql.open(config.mysql_db)
-                .query(
-                    'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
-                    [id, data],
-                    send_response
-                )
-                .end();
-        },
+        mysql.open(config.mysql_db)
+            .query(
+                'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
+                [id, data],
+                send_response
+            )
+            .end();
+    }
 ```
 
 - `start` function is required for uniformity
@@ -162,20 +162,20 @@ exports.update_user = function (req, res, next) {
 - as much as possible there should be no more function inside this level except for `forEach`, `map`, `filter`, and `reduce`, if lodash is available, use it
 
 ```javascript
-        send_response = function (err, result) {
-            if (err) {
-                return next(err);
-            }
+    function send_response (err, result) {
+        if (err) {
+            return next(err);
+        }
 
-            res.send({message: 'User successfully updated'});
-        };
+        res.send({message: 'User successfully updated'});
+    }
 
     start();
 ```
 
 - `send_response` is common to be the last function to be executed
 - use `next` for passing errors
-- after all variable declarations, call `start`
+- after all variable and function declarations, call `start`
 
 Notes:
 - use `res.warn(status, message)` or `res.warn(message)`  instead of `next(error)` of the server guy does not need to know the error like "user not found", etc

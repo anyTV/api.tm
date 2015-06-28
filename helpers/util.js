@@ -9,12 +9,18 @@ exports.hash = function (string, hash) {
 
 
 exports.get_data = function (reqd, optional, body) {
-    var i = reqd.length,
+    var types = ['string', 'number'],
+        i = reqd.length,
         ret = {},
         temp;
 
+    if (typeof(optional) === 'object' && !Array.isArray(optional)) {
+        body = optional;
+        optional = [];
+    }
+
     while (i--) {
-        if (!body[temp = reqd[i]] || typeof body[temp] === 'object') {
+        if (!body[temp = reqd[i]] || !~types.indexOf(typeof(body[temp]))) {
             return temp + ' is missing';
         }
         ret[temp] = body[temp];
@@ -23,10 +29,11 @@ exports.get_data = function (reqd, optional, body) {
     i = optional.length;
 
     while (i--) {
-        if (body[temp = optional[i]]) {
+        if (body[temp = optional[i]] && ~types.indexOf(typeof(body[temp]))) {
             ret[temp] = body[temp];
         }
     }
+
     return ret;
 };
 
