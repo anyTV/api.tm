@@ -11,9 +11,7 @@ module.exports = function (router) {
 
     router.all('*', function (req, res) {
         res.status(404)
-            .send({
-                message: 'Nothing to do here.'
-            });
+            .send({message: 'Nothing to do here.'});
     });
 
     return router;
