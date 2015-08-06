@@ -1,6 +1,8 @@
 'use strict';
 
-var importer = require('anytv-node-importer');
+var config   = require(__dirname + '/config'),
+	importer = require('anytv-node-importer'),
+	upload   = require('multer')({dest: config.UPLOAD_DIR});
 
 module.exports = function (router) {
     var c = importer.dirloadSync(__dirname + '/../controllers');
