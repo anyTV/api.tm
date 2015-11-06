@@ -18,7 +18,7 @@
     "moment": "latest",
     "morgan": "latest",
     "multer": "latest",
-    "winston": "winston"
+    "winston": "latest"
   },
   "scripts": {
     "start": "npm install && nodemon server.js",
