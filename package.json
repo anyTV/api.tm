@@ -17,7 +17,8 @@
     "method-override": "latest",
     "moment": "latest",
     "morgan": "latest",
-    "multer": "latest"
+    "multer": "latest",
+    "winston": "winston"
   },
   "scripts": {
     "start": "npm install && nodemon server.js",
