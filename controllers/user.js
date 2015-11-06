@@ -1,22 +1,24 @@
 'use strict';
 
-var config = require(__dirname + '/../config/config'),
-    mysql = require('anytv-node-mysql');
+const mysql   = require('anytv-node-mysql');
+const winston = require('winston');
 
 
-exports.get_user = function (req, res, next) {
+exports.get_user = (req, res, next) => {
 
     function start () {
-        mysql.open(config.DB)
+        mysql.use('my_db')
             .query(
-                'SELECT * FROM users WHERE user_id = ? LIMIT 1;', [req.params.id],
+                'SELECT * FROM users WHERE user_id = ? LIMIT 1;',
+                [req.params.id],
                 send_response
             )
             .end();
     }
 
-    function send_response (err, result) {
+    function send_response (err, result, args, last_query) {
         if (err) {
+            winston.error('Error in selecting users', last_query);
             return next(err);
         }
 

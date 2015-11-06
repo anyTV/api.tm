@@ -1,44 +1,42 @@
 'use strict';
 
-var path = require('path'),
+const path = require('path');
+const config = {
+    APP_NAME: 'anyTV Node Boilerplate',
 
-    extend = function (obj, source) {
-        var prop;
+    PORT: 6969,
 
-        for (prop in source) {
-            if (source.hasOwnProperty(prop)) {
-                obj[prop] = source[prop];
-            }
-        }
-
-        return obj;
+    CORS:  {
+        allowed_headers: 'Access-Token, X-Requested-With, Content-Type, Accept',
+        allowed_origins: '*',
+        allowed_methods: 'GET, POST, PUT, OPTIONS, DELETE'
     },
 
-    config = {
-        APP_NAME: 'anyTV Node Boilerplate',
-
-        PORT: 3000,
-
-        CORS :  {
-            allowed_headers : 'Access-Token, X-Requested-With, Content-Type, Accept',
-            allowed_origins : '*',
-            allowed_methods : 'GET, POST, PUT, OPTIONS, DELETE'
-        },
-
-        UPLOAD_DIR: path.normalize(__dirname + '/../uploads/'),
-        VIEWS_DIR: path.normalize(__dirname + '/../views'),
-        LOGS_DIR: path.normalize(__dirname + '/../logs/'),
+    UPLOAD_DIR: path.normalize(__dirname + '/../uploads/'),
+    ASSETS_DIR: path.normalize(__dirname + '/../assets'),
+    LOGS_DIR: path.normalize(__dirname + '/../logs/'),
 
 
-        DB: {
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'test'
+    DB: {
+        host: 'localhost',
+        user: 'root',
+        password: '',
+        database: 'test'
+    }
+};
+
+
+function extend (obj, source) {
+    let prop;
+
+    for (prop in source) {
+        if (source.hasOwnProperty(prop)) {
+            obj[prop] = source[prop];
         }
+    }
 
-    };
-
+    return obj;
+}
 
 // set development as our default environment
 if (!process.env.NODE_ENV) {
