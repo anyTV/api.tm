@@ -15,4 +15,4 @@ before_script:
     - mysql -e 'create database test;'
 language: node_js
 node_js:
-  - "0.10"
+  - "5.0.0"
