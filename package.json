@@ -5,10 +5,8 @@
   "main": "server.js",
   "dependencies": {
     "anytv-node-cors": "latest",
-    "anytv-node-error-handler": "latest",
     "anytv-node-importer": "latest",
     "anytv-node-logger": "latest",
-    "anytv-node-mongo": "latest",
     "anytv-node-mysql": "latest",
     "body-parser": "latest",
     "compression": "latest",
