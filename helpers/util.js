@@ -129,7 +129,7 @@ exports.split = (a, n) => {
     let i = 0;
 
     while (i < len) {
-        out.push(a.slice(0, i += Math.ceil((len - i) / n--)));
+        out.push(a.slice(i, i += Math.ceil((len - i) / n--)));
     }
 
     return out;
