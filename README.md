@@ -47,22 +47,21 @@ Here's a typical controller:
 ```javascript
 // user.js
 
-var config = require(__dirname + '/../config/config'),
-    util   = require(__dirname + '/../helpers/util'),
-    mysql  = require('anytv-node-mysql'),
-    moment = require('moment');
+const util   = require(__dirname + '/../helpers/util'),
+const mysql  = require('anytv-node-mysql'),
+const moment = require('moment');
 
 
 
-exports.update_user = function (req, res, next) {
-    var data = util.get_data(
-            ['user_id'],
-            ['first_name', 'last_name'],
-            req.body
-        );
+exports.update_user = (req, res, next) => {
+    const data = util.get_data(
+        ['user_id'],
+        ['first_name', 'last_name'],
+        req.body
+    );
 
     function start () {
-        var id;
+        let id;
 
         if (typeof(data) === 'string') {
             return next(data);
@@ -71,7 +70,7 @@ exports.update_user = function (req, res, next) {
         id = data.id;
         delete data.id;
 
-        mysql.open(config.mysql_db)
+        mysql.use('my_db')
             .query(
                 'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
                 [id, data],
@@ -100,10 +99,10 @@ exports.delete_user = function (req, res, next) {
 Detailed explanation:
 
 ```javascript
-var config = require(__dirname + '/../config/config'),
-    util   = require(__dirname + '/../helpers/util'),
-    mysql  = require('anytv-node-mysql'),
-    moment = require('moment');
+const config = require(__dirname + '/../config/config');
+const util   = require(__dirname + '/../helpers/util');
+const mysql  = require('anytv-node-mysql');
+const moment = require('moment');
 ```
 
 - The first part of the controller contains the config, helpers, and libraries to be used by the controller's functions
@@ -113,7 +112,7 @@ var config = require(__dirname + '/../config/config'),
 
 
 ```javascript
-exports.update_user = function (req, res, next) {
+exports.update_user = (req, res, next) => {
 ```
 
 - snake_case on exported function names
@@ -123,11 +122,11 @@ exports.update_user = function (req, res, next) {
 
 
 ```javascript
-    var data = util.get_data(
-            ['user_id'],
-            ['first_name', 'last_name'],
-            req.body
-        ),
+    const data = util.get_data(
+        ['user_id'],
+        ['first_name', 'last_name'],
+        req.body
+    ),
 ```
 
 - it is common to use `data` as the variable to store the parameters given by the user
@@ -137,7 +136,7 @@ exports.update_user = function (req, res, next) {
 
 ```javascript
     function start () {
-        var id;
+        let id;
 
         if (typeof(data) === 'string') {
             return next(data);
@@ -146,7 +145,7 @@ exports.update_user = function (req, res, next) {
         id = data.id;
         delete data.id;
 
-        mysql.open(config.mysql_db)
+        mysql.use('my_db')
             .query(
                 'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
                 [id, data],
