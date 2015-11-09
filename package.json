@@ -7,18 +7,18 @@
     "anytv-node-cors": "latest",
     "anytv-node-error-handler": "latest",
     "anytv-node-importer": "latest",
-    "anytv-node-logger": "latest",
-    "anytv-node-mongo": "latest",
     "anytv-node-mysql": "latest",
     "body-parser": "latest",
     "compression": "latest",
     "cuddle": "latest",
     "express": "latest",
-    "file-stream-rotator": "0.0.6",
+    "file-stream-rotator": "latest",
+    "lodash": "latest",
     "method-override": "latest",
     "moment": "latest",
     "morgan": "latest",
-    "multer": "latest"
+    "multer": "latest",
+    "winston": "latest"
   },
   "scripts": {
     "start": "npm install && nodemon server.js",

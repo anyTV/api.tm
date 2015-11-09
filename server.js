@@ -38,7 +38,7 @@ winston.log('verbose', 'Binding custom middlewares');
 app.use(require('anytv-node-cors')(config.CORS));
 app.use(require(__dirname + '/lib/res_extended')());
 app.use(require(__dirname + '/config/router')(express.Router()));
-app.use(require('anytv-node-error-handler')());
+app.use(require('anytv-node-error-handler')(winston));
 
 app.listen(config.PORT);
 winston.log('info', 'Server listening on port', config.PORT);
