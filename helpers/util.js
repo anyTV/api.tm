@@ -3,14 +3,15 @@
     Utilities
 */
 
-exports.hash = (string, hash) =>
-    require('crypto')
+function hash (string, hash) {
+    return require('crypto')
         .createHash(hash || 'sha1')
         .update('' + string)
         .digest('hex');
+}
 
 
-exports.get_data = (reqd, optional, body) => {
+function get_data (reqd, optional, body) {
     const types = ['string', 'number'];
 
     let i = reqd.length;
@@ -39,10 +40,10 @@ exports.get_data = (reqd, optional, body) => {
     }
 
     return ret;
-};
+}
 
 
-exports.random_string = (i) => {
+function random_string (i) {
     const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
     let l = i || 32;
@@ -53,7 +54,7 @@ exports.random_string = (i) => {
     }
 
     return str;
-};
+}
 
 /**
  * Fast UUID generator, RFC4122 version 4 compliant.
@@ -61,8 +62,7 @@ exports.random_string = (i) => {
  * @license MIT license
  * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
  **/
-
-exports.generate_UUID = () => {
+function generate_UUID () {
     const UUID = (() => {
         const self = {};
         const lut = [];
@@ -91,38 +91,43 @@ exports.generate_UUID = () => {
     })();
 
     return UUID.generate();
-};
+}
 
 
-exports.unique_short_string = (n) =>
-    (+new Date() * Math.random())
+function unique_short_string (n) {
+    return (+new Date() * Math.random())
         .toString(36)
         .replace('.', '')
         .substring(0, n);
+}
 
 
-exports.pad = (num, size) =>
-    ('000000000' + num).substr(-(size || 2));
+function pad (num, size) {
+    return ('000000000' + num).substr(-(size || 2));
+}
 
 
-exports.to_title_case = (str) =>
-    str
+function to_title_case (str) {
+    return str
         ? str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
         : '';
+}
 
 
-exports.caps_first = (string) =>
-    string.charAt(0)
+function caps_first (string) {
+    return string.charAt(0)
         .toUpperCase()
     + string.slice(1);
+}
 
 
-exports.clean_string = (string) =>
-    string.match(/\S{1,30}/g)
+function clean_string (string) {
+    return string.match(/\S{1,30}/g)
         .join(' ');
+}
 
 
-exports.split = (a, n) => {
+function split (a, n) {
     const len = a.length;
     const out = [];
 
@@ -133,10 +138,10 @@ exports.split = (a, n) => {
     }
 
     return out;
-};
+}
 
 
-exports.slice = (a, n) => {
+function slice (a, n) {
     const out = [];
 
     let number_of_slice = Math.ceil(a.length / n);
@@ -146,10 +151,10 @@ exports.slice = (a, n) => {
     }
 
     return out;
-};
+}
 
 
-exports.extend = (obj, source) => {
+function extend (obj, source) {
     let prop;
 
     for (prop in source) {
@@ -159,10 +164,10 @@ exports.extend = (obj, source) => {
     }
 
     return obj;
-};
+}
 
 
-exports.get_log_stream = (dir) => {
+function get_log_stream (dir) {
     const file_stream_rotator = require('file-stream-rotator');
     const moment = require('moment');
     const proc_id = process.env.cpu_number || '';
@@ -172,8 +177,28 @@ exports.get_log_stream = (dir) => {
         frequency: 'daily',
         verbose: false
     });
+}
+
+
+function clone (obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+
+
+exports = {
+    hash,
+    get_data,
+    random_string,
+    generate_UUID,
+    unique_short_string,
+    pad,
+    to_title_case,
+    caps_first,
+    clean_string,
+    split,
+    slice,
+    extend,
+    get_log_stream,
+    clone
 };
-
-
-exports.clone = (obj) =>
-    JSON.parse(JSON.stringify(obj));
