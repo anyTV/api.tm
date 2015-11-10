@@ -1,5 +1,6 @@
 'use strict';
 
+const _    = require('lodash');
 const path = require('path');
 const config = {
     APP_NAME: 'anyTV Node Boilerplate',
@@ -25,22 +26,9 @@ const config = {
     }
 };
 
-
-function extend (obj, source) {
-    let prop;
-
-    for (prop in source) {
-        if (source.hasOwnProperty(prop)) {
-            obj[prop] = source[prop];
-        }
-    }
-
-    return obj;
-}
-
 // set development as our default environment
 if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'development';
 }
 
-module.exports = extend(config, require(__dirname + '/env/' + process.env.NODE_ENV));
+module.exports = _.assign(config, require(__dirname + '/env/' + process.env.NODE_ENV));

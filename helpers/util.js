@@ -10,37 +10,71 @@ function hash (string, hash) {
         .digest('hex');
 }
 
+/**
+ * Data validator
+ * @param1 pass a sample object
+    put _ as first character of the key to indicate as optional
+    @example:
+        get_data({
+            name: '',  // any string
+            age: 1, //
+            admin: true,
+            _skype: ''
+        });
+ * @param2 source (req.body, req.query, req.params)
+ **/
+function get_data (sample, source) {
+    let final = {};
 
-function get_data (reqd, optional, body) {
-    const types = ['string', 'number'];
+    function validate_primitive_value (sample, prop, source, source_prop) {
+        const source_type = typeof source[source_prop];
+        const type = typeof sample[prop];
 
-    let i = reqd.length;
-    let ret = {};
-    let temp;
-
-    if (typeof(optional) === 'object' && !Array.isArray(optional)) {
-        body = optional;
-        optional = [];
-    }
-
-    while (i--) {
-        temp = reqd[i];
-        if (!~types.indexOf(typeof(body[temp])) || body[temp] === '') {
-            return temp + ' is missing';
+        if (source_type === 'undefined' && prop[0] !== '_') {
+            throw new Error(`${prop} is missing`);
         }
-        ret[temp] = body[temp];
+
+        if (source_type !== 'undefined' && source_type !== type) {
+            throw new Error(`${prop} invalid type`);
+        }
+
+        if (type === 'object') {
+            return get_data(sample[prop], source[source_prop]);
+        }
+
+        return source[source_prop];
     }
 
-    i = optional.length;
+    if (typeof sample !== typeof source) {
+        throw new Error('Sample-Source type mismatch');
+    }
 
-    while (i--) {
-        if (body[temp = optional[i]] && ~types.indexOf(typeof(body[temp]))) {
-            ret[temp] = body[temp];
+    if (Array.isArray(sample)) {
+        return source.map((a, index) => {
+            return validate_primitive_value(sample, 0, source, index);
+        });
+    }
+
+    for (let prop in sample) {
+        if (sample.hasOwnProperty(prop)) {
+            let source_prop = prop;
+            let data;
+
+            if (prop[0] === '_') {
+                source_prop = prop.slice(1);
+            }
+
+            data = validate_primitive_value(sample, prop, source, source_prop);
+
+            if (typeof data !== 'undefined') {
+                final[source_prop] = data;
+            }
         }
     }
 
-    return ret;
+    return final;
 }
+
 
 
 function random_string (i) {
@@ -141,32 +175,6 @@ function split (a, n) {
 }
 
 
-function slice (a, n) {
-    const out = [];
-
-    let number_of_slice = Math.ceil(a.length / n);
-
-    for (let i = 0; number_of_slice--; i += n) {
-        out.push(a.splice(0, n));
-    }
-
-    return out;
-}
-
-
-function extend (obj, source) {
-    let prop;
-
-    for (prop in source) {
-        if (source.hasOwnProperty(prop)) {
-           obj[prop] = source[prop];
-        }
-    }
-
-    return obj;
-}
-
-
 function get_log_stream (dir) {
     const file_stream_rotator = require('file-stream-rotator');
     const moment = require('moment');
@@ -186,7 +194,7 @@ function clone (obj) {
 
 
 
-exports = {
+module.exports = {
     hash,
     get_data,
     random_string,
@@ -197,8 +205,6 @@ exports = {
     caps_first,
     clean_string,
     split,
-    slice,
-    extend,
     get_log_stream,
     clone
 };
