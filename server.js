@@ -39,8 +39,9 @@ app.use(require(__dirname + '/lib/res_extended')());
 app.use(require(__dirname + '/config/router')(express.Router()));
 app.use(require('anytv-node-error-handler')(winston));
 
-app.listen(config.PORT);
 winston.log('info', 'Server listening on port', config.PORT);
 
-
-module.exports = app;
+module.exports = {
+	app,
+	handler: app.listen(config.PORT)
+};

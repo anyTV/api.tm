@@ -1,25 +1,29 @@
 'use strict';
 
-var config = require(__dirname + '/../config/config'),
-    util = require(__dirname + '/../helpers/util'),
-    mysql = require('anytv-node-mysql'),
-    fs = require('fs'),
-    reset_query = fs.readFileSync(__dirname + '/../database/truncate.sql').toString() + fs.readFileSync(__dirname +
-        '/../database/seed.sql').toString();
+const cwd    = process.cwd();
+const config = require(`${cwd}/config/config`);
+const util   = require(`${cwd}/helpers/util`);
+const mysql  = require('anytv-node-mysql');
+const fs     = require('fs');
+const reset_query = fs.readFileSync(`${cwd}/database/truncate.sql`, 'utf-8').toString()
+    + fs.readFileSync(`${cwd}/database/seed.sql`).toString();
 
 config.DB.multipleStatements = true;
 
-before(function (done) {
-    var db_config = util.clone(config.DB),
-        real_db = db_config.database.replace('_test', ''),
-        sql = fs.readFileSync(__dirname + '/../database/schema.sql')
+mysql.add('db', config.DB);
+
+
+before((done) => {
+    const db_config = util.clone(config.DB);
+    const real_db   = db_config.database.replace('_test', '');
+    const sql = fs.readFileSync(`${cwd}/database/schema.sql`, 'utf-8')
         .toString()
         .replace(new RegExp(real_db, 'gi'), db_config.database);
 
     db_config.database = real_db;
 
-    mysql.open(config.DB)
-        .query(sql, function (err) {
+    mysql.use('db')
+        .query(sql, (err) => {
             if (err) {
                 console.log(err);
             }
@@ -28,13 +32,21 @@ before(function (done) {
         .end();
 });
 
-beforeEach(function (done) {
-    mysql.open(config.DB)
-        .query(reset_query, function (err) {
+
+beforeEach((done) => {
+    mysql.use('db')
+        .query(reset_query, (err) => {
             if (err) {
                 console.log(err);
             }
             done();
         })
         .end();
+});
+
+
+after((done) => {
+    const app = require(process.cwd() + '/server');
+    app.handler.close();
+    done();
 });

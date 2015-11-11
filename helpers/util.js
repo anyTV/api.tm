@@ -90,51 +90,6 @@ function random_string (i) {
     return str;
 }
 
-/**
- * Fast UUID generator, RFC4122 version 4 compliant.
- * @author Jeff Ward (jcward.com).
- * @license MIT license
- * @link http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript/21963136#21963136
- **/
-function generate_UUID () {
-    const UUID = (() => {
-        const self = {};
-        const lut = [];
-        const i = 0;
-
-        for (; i < 256; i += 1) {
-            lut[i] = (i < 16 ? '0' : '') + (i).toString(16);
-        }
-
-        self.generate = () => {
-            const d0 = Math.random() * 0xffffffff | 0;
-            const d1 = Math.random() * 0xffffffff | 0;
-            const d2 = Math.random() * 0xffffffff | 0;
-            const d3 = Math.random() * 0xffffffff | 0;
-
-            return lut[d0 & 0xff] + lut[d0 >> 8 & 0xff] + lut[d0 >> 16 & 0xff] + lut[d0 >> 24 & 0xff] +
-                '-' +
-                lut[d1 & 0xff] + lut[d1 >> 8 & 0xff] + '-' + lut[d1 >> 16 & 0x0f | 0x40] + lut[d1 >> 24 &
-                    0xff] + '-' +
-                lut[d2 & 0x3f | 0x80] + lut[d2 >> 8 & 0xff] + '-' + lut[d2 >> 16 & 0xff] + lut[d2 >> 24 &
-                    0xff] +
-                lut[d3 & 0xff] + lut[d3 >> 8 & 0xff] + lut[d3 >> 16 & 0xff] + lut[d3 >> 24 & 0xff];
-        };
-
-        return self;
-    })();
-
-    return UUID.generate();
-}
-
-
-function unique_short_string (n) {
-    return (+new Date() * Math.random())
-        .toString(36)
-        .replace('.', '')
-        .substring(0, n);
-}
-
 
 function pad (num, size) {
     return ('000000000' + num).substr(-(size || 2));
@@ -152,12 +107,6 @@ function caps_first (string) {
     return string.charAt(0)
         .toUpperCase()
     + string.slice(1);
-}
-
-
-function clean_string (string) {
-    return string.match(/\S{1,30}/g)
-        .join(' ');
 }
 
 
@@ -198,12 +147,9 @@ module.exports = {
     hash,
     get_data,
     random_string,
-    generate_UUID,
-    unique_short_string,
     pad,
     to_title_case,
     caps_first,
-    clean_string,
     split,
     get_log_stream,
     clone

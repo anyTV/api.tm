@@ -23,7 +23,7 @@
   "scripts": {
     "start": "npm install && nodemon server.js",
     "test": "make test",
-    "dev-test": "mocha tests -R spec -t 5000 -s 0 --watch"
+    "dev-test": "export NODE_ENV=test && mocha tests --watch --recursive -R spec -t 5000 -s 10"
   },
   "repository": {
     "type": "git",
