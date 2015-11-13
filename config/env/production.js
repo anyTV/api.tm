@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = {
-    ENV: 'test',
+    ENV: 'production',
     LOG_LEVEL: 'info'
 };
