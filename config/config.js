@@ -2,6 +2,7 @@
 
 const _    = require('lodash');
 const path = require('path');
+
 const config = {
     APP_NAME: 'anyTV Node Boilerplate',
 
@@ -24,12 +25,16 @@ const config = {
         user: 'root',
         password: '',
         database: 'test'
+    },
+
+    use: (env) => {
+        _.assign(config, require(__dirname + '/env/' + env));
+        return config;
     }
 };
 
-// set development as our default environment
 if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'development';
 }
 
-module.exports = _.assign(config, require(__dirname + '/env/' + process.env.NODE_ENV));
+module.exports = config.use(process.env.NODE_ENV);

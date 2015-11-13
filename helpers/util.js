@@ -127,7 +127,7 @@ function split (a, n) {
 function get_log_stream (dir) {
     const file_stream_rotator = require('file-stream-rotator');
     const moment = require('moment');
-    const proc_id = process.env.cpu_number || '';
+    const proc_id = process.env.cpu_number || 0;
 
     return file_stream_rotator.getStream({
         filename: dir + '/access-%DATE%.' + proc_id + '.log',

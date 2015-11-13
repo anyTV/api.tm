@@ -3,7 +3,17 @@
 const mysql   = require('anytv-node-mysql');
 const winston = require('winston');
 
-
+/**
+ * @api {get} /user/:id Get user information
+ * @apiName GetUser
+ * @apiGroup User
+ *
+ * @apiParam {String} id User's unique ID
+ *
+ * @apiSuccess {String} user_id User's unique ID
+ * @apiSuccess {String} date_created Time when the user was created
+ * @apiSuccess {String} date_updated Time when last update occurred
+ */
 exports.get_user = (req, res, next) => {
 
     function start () {
