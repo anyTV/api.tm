@@ -2,6 +2,7 @@ anyTV Node Boilerplate
 =====
 
 [![Build Status](https://travis-ci.org/anyTV/anytv-node-boilerplate.svg?branch=master)](https://travis-ci.org/anyTV/anytv-node-boilerplate)
+[![Coverage Status](https://coveralls.io/repos/anyTV/anytv-node-boilerplate/badge.svg?branch=master&service=github)](https://coveralls.io/github/anyTV/anytv-node-boilerplate?branch=master)
 
 Table of contents
 -----

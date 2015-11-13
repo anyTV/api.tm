@@ -15,6 +15,7 @@ const config = {
 
     UPLOAD_DIR: path.normalize(__dirname + '/../uploads/'),
     ASSETS_DIR: path.normalize(__dirname + '/../assets'),
+    VIEWS_DIR: path.normalize(__dirname + '/../views'),
     LOGS_DIR: path.normalize(__dirname + '/../logs/'),
 
 

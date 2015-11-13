@@ -2,5 +2,5 @@
 
 module.exports = {
     ENV: 'test',
-    LOG_LEVEL: 'error'
+    LOG_LEVEL: 'info'
 };

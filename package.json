@@ -1,29 +1,30 @@
 {
   "name": "anytv-node-boilerplate",
   "version": "0.0.1",
-  "description": "REST API backend boilerplate",
+  "description": "REST API boilerplate",
   "main": "server.js",
   "dependencies": {
     "anytv-node-cors": "latest",
     "anytv-node-error-handler": "latest",
     "anytv-node-importer": "latest",
     "anytv-node-mysql": "latest",
-    "body-parser": "latest",
-    "compression": "latest",
+    "body-parser": "^1.14.1",
+    "compression": "^1.6.0",
     "cuddle": "latest",
-    "express": "latest",
-    "file-stream-rotator": "latest",
-    "lodash": "latest",
-    "method-override": "latest",
-    "moment": "latest",
-    "morgan": "latest",
-    "multer": "latest",
-    "winston": "latest"
+    "express": "^4.13.3",
+    "file-stream-rotator": "0.0.6",
+    "lodash": "^3.10.1",
+    "method-override": "^2.3.5",
+    "moment": "^2.10.6",
+    "morgan": "^1.6.1",
+    "multer": "^1.1.0",
+    "winston": "^2.1.0"
   },
   "scripts": {
     "start": "npm install && nodemon server.js",
     "test": "make test",
-    "dev-test": "export NODE_ENV=test && mocha tests --watch --recursive -R spec -t 5000 -s 10"
+    "coverage": "export NODE_ENV=test && istanbul cover _mocha -- --recursive -R spec -t 5000 -s 100",
+    "test-dev": "export NODE_ENV=test && mocha --watch --recursive -R spec -t 5000 -s 100"
   },
   "repository": {
     "type": "git",
@@ -38,8 +39,11 @@
   },
   "homepage": "https://github.com/anyTV/anytv-node-boilerplate",
   "devDependencies": {
-    "chai": "latest",
-    "mocha": "latest",
-    "supertest": "latest"
+    "chai": "^3.4.1",
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3",
+    "mocha-lcov-reporter": "^1.0.0",
+    "supertest": "^1.1.0"
   }
 }

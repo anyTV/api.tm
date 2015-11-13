@@ -23,7 +23,7 @@ exports.get_user = (req, res, next) => {
         }
 
         if (!result.length) {
-            return res.warn(404, 'User not found');
+            return res.warn(404, {message: 'User not found'});
         }
 
         res.send(result[0]);
