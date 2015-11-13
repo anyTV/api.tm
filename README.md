@@ -9,14 +9,20 @@ Table of contents
 - [Introduction](#introduction)
 - [Running the application](#running-the-application)
 - [Creating a controller](#creating-a-controller)
+- [Contributing](#contributing)
+- [Running test](#running-test)
+- [Code coverage](#code-coverage)
+- [API documentation](#api-documentation)
+- [License](#license)
+- [Author](#author)
 
 Introduction
 -----
 A boilerplate for REST APIs. Can also be used for server-side rendered web pages.
 This project **strictly** uses the [company's JS conventions](https://github.com/anyTV/JS-conventions).
 
-Running the application
------
+## Running the application
+
 
 1. Download Zip
 2. Extract to your project's folder
@@ -190,7 +196,7 @@ Notes:
 
 
 
-# Contributing
+## Contributing
 
 Install the tools needed:
 ```sh
@@ -200,30 +206,30 @@ npm install mocha -g
 npm install --dev
 ```
 
-# Running test
+## Running test
 
 ```sh
 npm test
 ```
 
-# Code coverage
+## Code coverage
 
 ```sh
 npm run coverage
 ```
 Then open coverage/lcov-report/index.html.
 
-# Api documentation
+## API documentation
 
 ```sh
 apidoc -i controllers -o apidoc/
 ```
 Then open apidoc/index.html.
 
-# License
+## License
 
 MIT
 
 
-# Author
+## Author
 [Freedom! Labs, any.TV Limited DBA Freedom!](https://www.freedom.tm)
