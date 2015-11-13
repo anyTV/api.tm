@@ -56,16 +56,19 @@ const moment = require('moment');
 
 exports.update_user = (req, res, next) => {
     const data = util.get_data(
-        ['user_id'],
-        ['first_name', 'last_name'],
+        {
+            user_id: '',
+            _first_name: '',
+            _last_name: ''
+        },
         req.body
     );
 
     function start () {
         let id;
 
-        if (typeof(data) === 'string') {
-            return next(data);
+        if (data instanceof Error) {
+            return next(data.message);
         }
 
         id = data.id;
@@ -93,7 +96,7 @@ exports.update_user = (req, res, next) => {
 
 
 
-exports.delete_user = function (req, res, next) {
+exports.delete_user = (req, res, next) => {
 ...
 ```
 
