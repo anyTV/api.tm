@@ -1,4 +1,5 @@
 lib-cov
+apidoc
 coverage
 *.seed
 *.log

@@ -1,4 +1,4 @@
-anyTV Node Boilerplate
+Node REST API Boilerplate
 =====
 
 [![Build Status](https://travis-ci.org/anyTV/anytv-node-boilerplate.svg?branch=master)](https://travis-ci.org/anyTV/anytv-node-boilerplate)
@@ -12,6 +12,7 @@ Table of contents
 
 Introduction
 -----
+A boilerplate for REST APIs. Can also be used for server-side rendered web pages.
 This project **strictly** uses the [company's JS conventions](https://github.com/anyTV/JS-conventions).
 
 Running the application
@@ -68,16 +69,16 @@ exports.update_user = (req, res, next) => {
         let id;
 
         if (data instanceof Error) {
-            return next(data.message);
+            return res.warn(400, {message: data.message});
         }
 
-        id = data.id;
-        delete data.id;
+        id = data.user_id;
+        delete data.user_id;
 
         mysql.use('my_db')
             .query(
                 'UPDATE users SET ? WHERE user_id = ? LIMIT 1;',
-                [id, data],
+                [data, id],
                 send_response
             )
             .end();
@@ -127,14 +128,18 @@ exports.update_user = (req, res, next) => {
 
 ```javascript
     const data = util.get_data(
-        ['user_id'],
-        ['first_name', 'last_name'],
+        {
+            user_id: '',
+            _first_name: '',
+            _last_name: ''
+        },
         req.body
     ),
 ```
 
 - it is common to use `data` as the variable to store the parameters given by the user
 - `util.get_data` helps on filtering the request payload
+- putting an underscore as first character makes it optional
 - non-function variables are also declared first
 - new line after non-function variables to make it more readable
 
@@ -142,8 +147,8 @@ exports.update_user = (req, res, next) => {
     function start () {
         let id;
 
-        if (typeof(data) === 'string') {
-            return next(data);
+        if (data instanceof Error) {
+            return res.warn(400, {message: data.message});
         }
 
         id = data.id;
@@ -162,7 +167,7 @@ exports.update_user = (req, res, next) => {
 - `start` function is required for uniformity
 - the idea is to have the code be readable like a book, from top-to-bottom
 - since variables are declared first and functions are assigned to variables, we thought of having `start` function to denote the start of the process
-- as much as possible there should be no more function inside this level except for `forEach`, `map`, `filter`, and `reduce`, if lodash is available, use it
+- as much as possible, there should be no more named functions inside this level except for `forEach`, `map`, `filter`, and `reduce`. If lodash is available, use it.
 
 ```javascript
     function send_response (err, result) {
@@ -177,8 +182,48 @@ exports.update_user = (req, res, next) => {
 ```
 
 - `send_response` is common to be the last function to be executed
-- use `next` for passing errors
+- use `next` for passing server fault errors
 - after all variable and function declarations, call `start`
 
 Notes:
-- use `res.warn(status, message)` or `res.warn(message)`  instead of `next(error)` of the server guy does not need to know the error like "user not found", etc
+- use `res.warn(status, obj)` or `res.warn(obj)`  instead of `next(error)` if the error is caused by the API caller
+
+
+
+# Contributing
+
+Install the tools needed:
+```sh
+npm install istanbul -g
+npm install apidoc -g
+npm install mocha -g
+npm install --dev
+```
+
+# Running test
+
+```sh
+npm test
+```
+
+# Code coverage
+
+```sh
+npm run coverage
+```
+Then open coverage/lcov-report/index.html.
+
+# Api documentation
+
+```sh
+apidoc -i controllers -o apidoc/
+```
+Then open apidoc/index.html.
+
+# License
+
+MIT
+
+
+# Author
+[Freedom! Labs, any.TV Limited DBA Freedom!](https://www.freedom.tm)
