@@ -31,11 +31,11 @@ function get_data (sample, source) {
         const type = typeof sample[prop];
 
         if (source_type === 'undefined' && prop[0] !== '_') {
-            throw new Error(`${prop} is missing`);
+            throw new Error(prop + ' is missing');
         }
 
         if (source_type !== 'undefined' && source_type !== type) {
-            throw new Error(`${prop} invalid type`);
+            throw new Error(prop + ' invalid type');
         }
 
         if (type === 'object') {
@@ -132,7 +132,8 @@ function get_log_stream (dir) {
     return file_stream_rotator.getStream({
         filename: dir + '/access-%DATE%.' + proc_id + '.log',
         frequency: 'daily',
-        verbose: false
+        verbose: false,
+        date_format: 'YYYY-MM-DD'
     });
 }
 

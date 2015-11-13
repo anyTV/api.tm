@@ -12,15 +12,17 @@ const winston     = require('winston');
 const express     = require('express');
 const app         = express();
 
-
+// configure logger
 winston.cli();
 winston.level = config.LOG_LEVEL || 'silly';
 
 winston.log('info', 'Starting', config.APP_NAME, 'on', config.ENV, 'environment');
 
-mysql.add('my_db', config.DB);
+// configure mysql
+mysql.set_logger(winston)
+	.add('my_db', config.DB);
 
-app.set('view engine', '.html');
+// configure express app
 app.set('case sensitive routing', true);
 app.set('x-powered-by', false);
 
