@@ -19,4 +19,13 @@ describe('User', () => {
                 done();
             });
     });
+
+    it('should return 404', (done) => {
+        api.get('/user/wrong_id')
+            .expect(404)
+            .end((err) => {
+                should.not.exist(err);
+                done();
+            });
+    });
 });

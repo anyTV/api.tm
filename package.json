@@ -23,7 +23,7 @@
   "scripts": {
     "start": "npm install && nodemon server.js",
     "test": "make test",
-    "coverage": "export NODE_ENV=test && istanbul cover _mocha -- --recursive -R spec -t 5000 -s 100",
+    "coverage": "unset NODE_ENV && istanbul cover _mocha -- --recursive -R spec -t 5000 -s 100",
     "test-dev": "unset NODE_ENV && mocha --watch --recursive -R spec -t 5000 -s 100"
   },
   "repository": {
