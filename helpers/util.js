@@ -23,36 +23,46 @@ function hash (string, hash) {
         });
  * @param2 source (req.body, req.query, req.params)
  **/
-function get_data (sample, source) {
+function get_data (sample, source, ref) {
+    let has_error = false;
     let final = {};
+    let temp;
 
-    function validate_primitive_value (sample, prop, source, source_prop) {
+    ref = ref || '';
+
+    function validate_primitive_value (sample, prop, source, source_prop, ref) {
         const source_type = typeof source[source_prop];
         const type = typeof sample[prop];
 
         if (source_type === 'undefined' && prop[0] !== '_') {
-            throw new Error(prop + ' is missing');
+            return new Error(ref + ' is missing');
         }
 
         if (source_type !== 'undefined' && source_type !== type) {
-            throw new Error(prop + ' invalid type');
+            return new Error(ref + ' invalid type');
         }
 
         if (type === 'object') {
-            return get_data(sample[prop], source[source_prop]);
+            return get_data(sample[prop], source[source_prop], ref);
         }
 
         return source[source_prop];
     }
 
-    if (typeof sample !== typeof source) {
-        throw new Error('Sample-Source type mismatch');
+    if (typeof sample !== typeof source || (Array.isArray(sample) !== Array.isArray(source))) {
+        return new Error('Sample-Source type mismatch');
     }
 
     if (Array.isArray(sample)) {
-        return source.map((a, index) => {
-            return validate_primitive_value(sample, 0, source, index);
+        temp = source.map((a, index) => {
+            const ret = validate_primitive_value(sample, 0, source, index, ref + `[${index}]`);
+            has_error = ret instanceof Error ? ret : false;
+            return ret;
         });
+
+        return has_error
+            ? has_error
+            : temp;
     }
 
     for (let prop in sample) {
@@ -64,7 +74,11 @@ function get_data (sample, source) {
                 source_prop = prop.slice(1);
             }
 
-            data = validate_primitive_value(sample, prop, source, source_prop);
+            data = validate_primitive_value(sample, prop, source, source_prop, (ref ? ref + '.' : '') + prop);
+
+            if (data instanceof Error) {
+                return data;
+            }
 
             if (typeof data !== 'undefined') {
                 final[source_prop] = data;

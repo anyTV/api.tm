@@ -46,18 +46,46 @@ describe('Util', () => {
     });
 
     it('util.get_data should tell what\'s missing', (done) => {
-        (() => {
-            util.get_data(
-                {required: 0, required2: 0, _optional: 1},
-                {
-                    required2: 2,
-                    required3: 3,
-                    optional: 4,
-                    optional1: 5
-                }
-            );
+        let data = util.get_data(
+            {required: 0, required2: 0, _optional: 1},
+            {
+                required2: 2,
+                required3: 3,
+                optional: 4,
+                optional1: 5
+            }
+        );
 
-        }).should.throw(Error, 'required is missing');
+        data.message.should.be.equal('required is missing');
+
+        data = util.get_data(
+            {required: 0, required2: {a: {b: 1}}, _optional: 1},
+            {
+                required: 1,
+                required2: {a: {}},
+                required3: 3,
+                optional: 4,
+                optional1: 5
+            }
+        );
+
+        data.message.should.be.equal('required2.a.b is missing');
+
+        data = util.get_data(
+            {required: 0, required2: {a: 1, b: ['']}, _optional: 1},
+            {
+                required: 1,
+                required2: {
+                    a: 0,
+                    b: ['', 1]
+                },
+                required3: 3,
+                optional: 4,
+                optional1: 5
+            }
+        );
+
+        data.message.should.be.equal('required2.b[1] invalid type');
 
         done();
     });
