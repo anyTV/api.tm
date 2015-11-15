@@ -222,7 +222,7 @@ Then open coverage/lcov-report/index.html.
 ## API documentation
 
 ```sh
-apidoc -i controllers -o apidoc/
+npm run docs
 ```
 Then open apidoc/index.html.
 
