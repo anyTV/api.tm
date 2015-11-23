@@ -5,11 +5,11 @@ const importer = require('anytv-node-importer');
 const upload   = require('multer')({dest: config.UPLOAD_DIR});
 
 module.exports = (router) => {
-    const c = importer.dirloadSync(__dirname + '/../controllers');
+    const __ = importer.dirloadSync(__dirname + '/../controllers');
 
     router.del = router.delete;
 
-    router.get('/user/:id', c.user.get_user);
+    router.get('/user/:id', __.user.get_user);
 
     router.all('*', function (req, res) {
         res.status(404)
