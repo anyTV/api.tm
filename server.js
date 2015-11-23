@@ -24,7 +24,6 @@ function start () {
 
     // set config
     config.use(process.env.NODE_ENV);
-    app.raven = config.ENV;
     app.set('env', config.ENV);
 
     // configure logger
@@ -57,7 +56,7 @@ function start () {
     app.use(require(__dirname + '/config/router')(express.Router()));
     app.use(require('anytv-node-error-handler')(winston));
 
-    winston.log('info', 'Server listening on port', config.PORT)
+    winston.log('info', 'Server listening on port', config.PORT);
 
     return app.listen(config.PORT);
 }
