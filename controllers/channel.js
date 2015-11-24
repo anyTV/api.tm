@@ -18,6 +18,7 @@ exports.get_channels = (req, res, next) => {
     let result;
 
     function start () {
+        //move this to model
         connection.query(
             'SELECT SQL_CALC_FOUND_ROWS channel_id, channel_name, ' +
             'channel_username, linked, ' +

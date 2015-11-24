@@ -2,6 +2,7 @@
 
 const mysql   = require('anytv-node-mysql');
 const winston = require('winston');
+const util = require(__dirname + '/../helpers/util');
 
 /**
  * @api {get} /user/:id Get user information
@@ -15,11 +16,11 @@ const winston = require('winston');
  * @apiSuccess {String} date_updated Time when last update occurred
  */
 exports.get_user = (req, res, next) => {
-
     function start () {
-        mysql.use('my_db')
+        mysql.use('dashboard_db')
             .query(
-                'SELECT * FROM users WHERE user_id = ? LIMIT 1;',
+                'SELECT given_name AS first_name, family_name AS last_name, ' +
+                'email, birthdate, country FROM users WHERE id = ? LIMIT 1;',
                 [req.params.id],
                 send_response
             )
@@ -36,7 +37,7 @@ exports.get_user = (req, res, next) => {
             return res.warn(404, {message: 'User not found'});
         }
 
-        res.send(result[0]);
+        res.send(util.format_success(result[0]));
     }
 
     start();
