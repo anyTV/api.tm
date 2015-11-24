@@ -32,7 +32,7 @@ function start () {
 
     // configure mysql
     mysql.set_logger(winston)
-        .add('my_db', config.DB);
+        .add('dashboard_db', config.DASHBOARD_DB);
 
 
     winston.log('info', 'Starting', config.APP_NAME, 'on', config.ENV, 'environment');

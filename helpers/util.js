@@ -157,6 +157,50 @@ function clone (obj) {
 }
 
 
+function format_success (items, other_details) {
+    const _ = require('lodash');
+    let formatted_response = {};
+
+    if (!Array.isArray(items)) {
+        items = [items];
+    }
+
+    formatted_response.data = {items};
+
+    other_details = other_details ||
+        {
+            total_count: null,
+            limit: null,
+            code: null
+        };
+
+    if (other_details.total_count) {
+        formatted_response.data.total_count = other_details.total_count;
+    }
+
+    if (other_details.limit) {
+        formatted_response.data.limit = other_details.limit;
+    }
+
+    if (other_details.code) {
+        formatted_response.meta = {code: other_details.code};
+    }
+
+    return formatted_response;
+}
+
+
+function format_error(items) {
+    const _ = require('lodash');
+    let formatted_response = {errors:[]};
+
+    _(items).map(function (code) {
+        formatted_response.errors.push({code});
+    }).commit();
+
+    return formatted_response;
+}
+
 
 module.exports = {
     hash,
@@ -167,5 +211,7 @@ module.exports = {
     caps_first,
     split,
     get_log_stream,
-    clone
+    clone,
+    format_success,
+    format_error
 };
