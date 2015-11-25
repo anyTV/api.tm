@@ -9,7 +9,7 @@ module.exports = (router) => {
 
     router.del = router.delete;
 
-    router.get('/partner_status/:id', __.partner.partner_status);
+    router.get('/channel/:id/partner_status', __.channel.partner_status);
     router.get('/channel', __.channel.get_channels);
     router.get('/user/:id', __.user.get_user);
 

@@ -7,12 +7,15 @@
 const config      = require(__dirname + '/config/config');
 const util        = require(__dirname + '/helpers/util');
 const mysql       = require('anytv-node-mysql');
+const quota       = require('anytv-node-quota');
 const body_parser = require('body-parser');
 const winston     = require('winston');
 const express     = require('express');
 
 let app;
 let handler;
+let quota_store;
+let quota_middleware;
 
 function start () {
     if (handler) {
@@ -32,6 +35,7 @@ function start () {
 
     // configure mysql
     mysql.set_logger(winston)
+        // .add('accounts_db', config.ACCOUNTS_DB)
         .add('dashboard_db', config.DASHBOARD_DB);
 
 
@@ -40,6 +44,7 @@ function start () {
     // configure express app
     app.set('case sensitive routing', true);
     app.set('x-powered-by', false);
+
 
     winston.log('verbose', 'Binding 3rd-party middlewares');
     app.use(require('morgan')('combined', {stream: util.get_log_stream(config.LOGS_DIR)}));
@@ -51,6 +56,8 @@ function start () {
 
 
     winston.log('verbose', 'Binding custom middlewares');
+    // quota_store = quota.store.create(mysql);
+    // quota_middleware = quota.middleware(quota_store, 'default', true);
     app.use(require('anytv-node-cors')(config.CORS));
     app.use(require(__dirname + '/lib/res_extended')());
     app.use(require(__dirname + '/config/router')(express.Router()));
