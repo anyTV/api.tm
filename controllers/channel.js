@@ -14,6 +14,8 @@ exports.get_channels_by_user = (req, res, next) => {
     }, req.query);
 
     function start () {
+        res.anytv_quota.set_weight(1);
+
         data.page = data.page || 1;
         data.limit = data.limit || 10;
         data.offset = (data.page - 1) * data.limit;
@@ -44,6 +46,8 @@ exports.get_channels_by_user = (req, res, next) => {
 
 exports.partner_status = (req, res, next) => {
     function start () {
+        res.anytv_quota.set_weight(1);
+
         Channel.get_partner_status(req.params.id, send_response);
     }
 
