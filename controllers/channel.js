@@ -1,7 +1,7 @@
 'use strict';
 
 const winston = require('winston');
-const util = require(__dirname + '/../helpers/util');
+const util    = require(__dirname + '/../helpers/util');
 const Channel = require(__dirname + '/../models/channel');
 
 
@@ -18,7 +18,7 @@ exports.get_channels_by_user = (req, res, next) => {
         data.limit = data.limit || 10;
         data.offset = (data.page - 1) * data.limit;
 
-        Channel.get_channels_by_user(data, send_response);
+        Channel.get_by_user(data, send_response);
     }
 
     function send_response (err, result) {
@@ -47,9 +47,9 @@ exports.partner_status = (req, res, next) => {
         Channel.get_partner_status(req.params.id, send_response);
     }
 
-    function send_response (err, result) {
+    function send_response (err, result, args, last_query) {
         if (err) {
-            winston.error('Error in getting partnership status', arguments[3]);
+            winston.error('Error in getting partnership status', last_query);
             return next(err);
         }
 
