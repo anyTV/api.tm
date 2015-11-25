@@ -45,7 +45,6 @@ function start () {
     app.set('case sensitive routing', true);
     app.set('x-powered-by', false);
 
-
     winston.log('verbose', 'Binding 3rd-party middlewares');
     app.use(require('morgan')('combined', {stream: util.get_log_stream(config.LOGS_DIR)}));
     app.use(express.static(config.ASSETS_DIR));
