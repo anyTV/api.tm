@@ -10,8 +10,8 @@ module.exports = (router) => {
     router.del = router.delete;
 
     router.get('/channel/:id/partner_status', __.channel.partner_status);
-    router.get('/channel/user', __.channel.get_channels_by_user);
-    router.get('/user/:id', __.user.get_user);
+    router.get('/channel/user',               __.channel.get_channels_by_user);
+    router.get('/user/:id',                   __.user.get_user);
 
     router.all('*', function (req, res) {
         res.status(404)

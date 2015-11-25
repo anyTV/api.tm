@@ -1,8 +1,8 @@
 'use strict';
 
 const winston = require('winston');
-const util = require(__dirname + '/../helpers/util');
-const User = require(__dirname + '/../models/user');
+const util    = require(__dirname + '/../helpers/util');
+const User    = require(__dirname + '/../models/user');
 /**
  * @api {get} /user/:id Get user information
  * @apiName GetUser
@@ -16,12 +16,12 @@ const User = require(__dirname + '/../models/user');
  */
 exports.get_user = (req, res, next) => {
     function start () {
-        User.get_user(req.params.id, send_response);
+        User.get(req.params.id, send_response);
     }
 
-    function send_response (err, result) {
+    function send_response (err, result, args, last_query) {
         if (err) {
-            winston.error('Error in selecting users', arguments[3]);
+            winston.error('Error in selecting users', last_query);
             return next(err);
         }
 

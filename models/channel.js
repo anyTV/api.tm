@@ -5,16 +5,16 @@ const winston = require('winston');
 
 
 
-exports.get_channels_by_user = (data, callback) => {
+exports.get_by_user = (data, callback) => {
     let channels = {};
 
     function start () {
         mysql.use('dashboard_db')
             .query(
-                'SELECT SQL_CALC_FOUND_ROWS channel_id, channel_name, ' +
-                'channel_username, linked, ' +
-                'temp, viewCount, subscriberCount, created_at FROM ' +
-                'channels WHERE user_id = ? LIMIT ? OFFSET ?',
+                `SELECT SQL_CALC_FOUND_ROWS channel_id, channel_name,
+                channel_username, linked,
+                temp, viewCount, subscriberCount, created_at FROM
+                channels WHERE user_id = ? LIMIT ? OFFSET ?`,
                 [data.user_id, data.limit, data.offset],
                 get_total_count
             );
