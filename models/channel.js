@@ -20,9 +20,9 @@ exports.get_by_user = (data, callback) => {
             );
     }
 
-    function get_total_count (err, result) {
+    function get_total_count (err, result, args, last_query) {
         if (err) {
-            winston.error('Error in selecting channels', arguments[3]);
+            winston.error('Error in selecting channels', last_query);
             return callback(err);
         }
 

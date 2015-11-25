@@ -16,6 +16,7 @@ const User    = require(__dirname + '/../models/user');
  */
 exports.get_user = (req, res, next) => {
     function start () {
+        res.anytv_quota.set_weight(1);
         User.get(req.params.id, send_response);
     }
 
