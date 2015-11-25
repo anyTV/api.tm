@@ -1,8 +1,8 @@
 'use strict';
 
-const mysql   = require('anytv-node-mysql');
 const winston = require('winston');
 const util = require(__dirname + '/../helpers/util');
+const Channel = require(__dirname + '/../models/channel');
 
 
 
@@ -12,43 +12,13 @@ exports.get_channels_by_user = (req, res, next) => {
         _page: 1,
         _limit: 1
     }, req.query);
-    let channels;
 
     function start () {
-        let offset;
-
         data.page = data.page || 1;
         data.limit = data.limit || 10;
-        offset = (data.page - 1) * data.limit;
+        data.offset = (data.page - 1) * data.limit;
 
-        mysql.use('dashboard_db')
-            .query(
-                'SELECT SQL_CALC_FOUND_ROWS channel_id, channel_name, ' +
-                'channel_username, linked, ' +
-                'temp, viewCount, subscriberCount, created_at FROM ' +
-                'channels WHERE user_id = ? LIMIT ? OFFSET ?',
-                [data.user_id, data.limit, offset],
-                get_total_count
-            );
-    }
-
-    function get_total_count (err, result) {
-        if (err) {
-            winston.error('Error in selecting channels', arguments[3]);
-            return next(err);
-        }
-
-        if (!result.length) {
-            mysql.end();
-            return send_response(null, [{total_count: 0}]);
-        }
-
-        channels = result;
-        mysql.query(
-            'SELECT FOUND_ROWS() AS total_count',
-            send_response
-        )
-        .end();
+        Channel.get_channels_by_user(data, send_response);
     }
 
     function send_response (err, result) {
@@ -57,8 +27,12 @@ exports.get_channels_by_user = (req, res, next) => {
             return next(err);
         }
 
-        return res.send(util.format_success(channels, {
-            total_count: result[0].total_count,
+        if (!result.total_count) {
+            return result.warn(404, 'No channels found');
+        }
+
+        return res.send(util.format_success(result.items, {
+            total_count: result.total_count,
             limit: data.limit
         }));
     }
@@ -70,13 +44,7 @@ exports.get_channels_by_user = (req, res, next) => {
 
 exports.partner_status = (req, res, next) => {
     function start () {
-        mysql.use('dashboard_db')
-            .query(
-                'SELECT linked FROM channels WHERE channel_id = ? LIMIT 1',
-                [req.params.id],
-                send_response
-            )
-            .end();
+        Channel.get_partner_status(req.params.id, send_response);
     }
 
     function send_response (err, result) {

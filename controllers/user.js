@@ -1,9 +1,8 @@
 'use strict';
 
-const mysql   = require('anytv-node-mysql');
 const winston = require('winston');
 const util = require(__dirname + '/../helpers/util');
-
+const User = require(__dirname + '/../models/user');
 /**
  * @api {get} /user/:id Get user information
  * @apiName GetUser
@@ -17,14 +16,7 @@ const util = require(__dirname + '/../helpers/util');
  */
 exports.get_user = (req, res, next) => {
     function start () {
-        mysql.use('dashboard_db')
-            .query(
-                'SELECT given_name AS first_name, family_name AS last_name, ' +
-                'email, birthdate, country FROM users WHERE id = ? LIMIT 1;',
-                [req.params.id],
-                send_response
-            )
-            .end();
+        User.get_user(req.params.id, send_response);
     }
 
     function send_response (err, result) {
