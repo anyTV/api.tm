@@ -6,7 +6,7 @@ const util = require(__dirname + '/../helpers/util');
 
 
 
-exports.get_channels = (req, res, next) => {
+exports.get_channels_by_user = (req, res, next) => {
     const data = util.get_data({
         user_id: '',
         _page: 1,
@@ -19,7 +19,7 @@ exports.get_channels = (req, res, next) => {
 
         data.page = data.page || 1;
         data.limit = data.limit || 10;
-        offset = (page - 1) * limit;
+        offset = (data.page - 1) * data.limit;
 
         mysql.use('dashboard_db')
             .query(
@@ -34,7 +34,7 @@ exports.get_channels = (req, res, next) => {
 
     function get_total_count (err, result) {
         if (err) {
-            winston.error(arguments[3]);
+            winston.error('Error in selecting channels', arguments[3]);
             return next(err);
         }
 
@@ -81,7 +81,7 @@ exports.partner_status = (req, res, next) => {
 
     function send_response (err, result) {
         if (err) {
-            winston.error(err.message);
+            winston.error('Error in getting partnership status', arguments[3]);
             return next(err);
         }
 
