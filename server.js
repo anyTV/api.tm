@@ -14,6 +14,7 @@ const express     = require('express');
 let app;
 let handler;
 
+
 function start () {
     if (handler) {
         handler.close();
@@ -32,7 +33,8 @@ function start () {
 
     // configure mysql
     mysql.set_logger(winston)
-        .add('my_db', config.DB);
+        .add('accounts_db', config.ACCOUNTS_DB)
+        .add('dashboard_db', config.DASHBOARD_DB);
 
 
     winston.log('info', 'Starting', config.APP_NAME, 'on', config.ENV, 'environment');

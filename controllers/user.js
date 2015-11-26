@@ -1,8 +1,8 @@
 'use strict';
 
-const mysql   = require('anytv-node-mysql');
 const winston = require('winston');
-
+const util    = require(__dirname + '/../helpers/util');
+const User    = require(__dirname + '/../models/user');
 /**
  * @api {get} /user/:id Get user information
  * @apiName GetUser
@@ -15,15 +15,9 @@ const winston = require('winston');
  * @apiSuccess {String} date_updated Time when last update occurred
  */
 exports.get_user = (req, res, next) => {
-
     function start () {
-        mysql.use('my_db')
-            .query(
-                'SELECT * FROM users WHERE user_id = ? LIMIT 1;',
-                [req.params.id],
-                send_response
-            )
-            .end();
+        res.anytv_quota.set_weight(1);
+        User.get(req.params.id, send_response);
     }
 
     function send_response (err, result, args, last_query) {
@@ -36,7 +30,7 @@ exports.get_user = (req, res, next) => {
             return res.warn(404, {message: 'User not found'});
         }
 
-        res.send(result[0]);
+        res.send(util.format_success(result[0]));
     }
 
     start();
