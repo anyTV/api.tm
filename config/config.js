@@ -4,7 +4,7 @@ const _    = require('lodash');
 const path = require('path');
 
 const config = {
-    APP_NAME: 'anyTV Node Boilerplate',
+    APP_NAME: 'API.tm',
 
     PORT: 6969,
 
@@ -18,14 +18,6 @@ const config = {
     ASSETS_DIR: path.normalize(__dirname + '/../assets'),
     VIEWS_DIR: path.normalize(__dirname + '/../views'),
     LOGS_DIR: path.normalize(__dirname + '/../logs'),
-
-
-    DB: {
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'test'
-    },
 
     use: (env) => {
         _.assign(config, require(__dirname + '/env/' + env));
