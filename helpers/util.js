@@ -3,7 +3,6 @@
     Utilities
 */
 
-
 function hash (string, hash) {
     return require('crypto')
         .createHash(hash || 'sha1')
@@ -35,7 +34,7 @@ function get_data (sample, source, ref) {
         const source_type = typeof source[source_prop];
         const type = typeof sample[prop];
 
-        if (source_type === 'undefined' && prop[0] !== '_') {
+        if ((source_type === 'undefined' && prop[0] !== '_') || (source_type === 'string' && !source[source_prop])) {
             return new Error(ref + ' is missing');
         }
 
@@ -158,43 +157,6 @@ function clone (obj) {
 }
 
 
-function format_success (items, other_details) {
-    const _ = require('lodash');
-    const formatted_response = {};
-
-    if (!Array.isArray(items)) {
-        items = [items];
-    }
-
-    formatted_response.data = {items};
-
-    other_details = other_details ||
-        {
-            total_count: null,
-            limit: null,
-            code: null
-        };
-
-    if (typeof other_details.total_count === 'number') {
-        formatted_response.data.total_count = other_details.total_count;
-    }
-
-    if (typeof other_details.limit === 'number') {
-        formatted_response.data.limit = other_details.limit;
-    }
-
-    if (other_details.code) {
-        formatted_response.meta = {code: other_details.code};
-    }
-
-    return formatted_response;
-}
-
-
-function format_error (items) {
-    return {errors: items.map(code => ({code}))};
-}
-
 
 module.exports = {
     hash,
@@ -205,7 +167,5 @@ module.exports = {
     caps_first,
     split,
     get_log_stream,
-    clone,
-    format_success,
-    format_error
+    clone
 };
