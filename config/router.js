@@ -17,7 +17,7 @@ module.exports = (router) => {
     router.get('/channel/user',               quota_middleware, __.channel.get_channels_by_user);
     router.get('/user/:id',                   quota_middleware, __.user.get_user);
 
-    router.all('*', function (req, res) {
+    router.all('*', (req, res) => {
         res.status(404)
             .send({message: 'Nothing to do here.'});
     });
