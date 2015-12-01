@@ -13,7 +13,8 @@ exports.get_by_user = (data, callback) => {
             .query(
                 `SELECT SQL_CALC_FOUND_ROWS channel_id, channel_name,
                 channel_username, linked, temp AS channel_status,
-                viewCount, subscriberCount, created_at FROM
+                viewCount AS view_count, subscriberCount 
+                AS subscriber_count, created_at FROM
                 channels WHERE user_id = ? LIMIT ? OFFSET ?`,
                 [data.user_id, data.limit, data.offset],
                 get_total_count
