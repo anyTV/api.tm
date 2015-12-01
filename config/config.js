@@ -19,6 +19,9 @@ const config = {
     VIEWS_DIR: path.normalize(__dirname + '/../views'),
     LOGS_DIR: path.normalize(__dirname + '/../logs'),
 
+    //default limit per page
+    LIMIT: 10,
+
     use: (env) => {
         _.assign(config, require(__dirname + '/env/' + env));
         return config;
