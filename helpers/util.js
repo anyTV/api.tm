@@ -157,11 +157,11 @@ function clone (obj) {
 }
 
 
-function update_pagination_params (data) {
+function set_pagination_params (data) {
     const config = require(__dirname + '/../config/config');
 
     data.page = data.page || 1;
-    data.limit = data.limit || config.LIMIT;
+    data.limit = data.limit || config.PAGE_LIMIT;
     data.offset = (data.page - 1) * data.limit;
 }
 
