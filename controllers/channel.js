@@ -16,9 +16,7 @@ exports.get_channels_by_user = (req, res, next) => {
     function start () {
         res.anytv_quota.set_weight(1);
 
-        data.page = data.page || 1;
-        data.limit = data.limit || 10;
-        data.offset = (data.page - 1) * data.limit;
+        util.set_pagination_params(data);
 
         Channel.get_by_user(data, send_response);
     }
