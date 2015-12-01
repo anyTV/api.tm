@@ -157,6 +157,15 @@ function clone (obj) {
 }
 
 
+function update_pagination_params (data) {
+    const config = require(__dirname + '/../config/config');
+
+    data.page = data.page || 1;
+    data.limit = data.limit || config.LIMIT;
+    data.offset = (data.page - 1) * data.limit;
+}
+
+
 
 module.exports = {
     hash,
@@ -167,5 +176,6 @@ module.exports = {
     caps_first,
     split,
     get_log_stream,
-    clone
+    clone,
+    update_pagination_params
 };
