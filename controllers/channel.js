@@ -30,13 +30,15 @@ exports.get_channels_by_user = (req, res, next) => {
         }
 
         if (!result.total_count) {
-            return result.warn(404, 'No channels found');
+            return res.status(404)
+                .error({code: 'CHANNEL404', message: 'Channel not found'})
+                .send();
         }
 
-        return res.send(util.format_success(result.items, {
-            total_count: result.total_count,
-            limit: data.limit
-        }));
+        res.items(result.items)
+            .total(result.total_count)
+            .limit(data.limit)
+            .send();
     }
 
     start();
@@ -58,10 +60,13 @@ exports.partner_status = (req, res, next) => {
         }
 
         if (!result.length) {
-            return res.warn(404, 'Channel not found');
+            return res.status(404)
+                .error({code: 'CHANNEL404', message: 'Channel not found'})
+                .send();
         }
 
-        return res.send(util.format_success({is_freedom_partner: result[0].linked}));
+        res.item({is_freedom_partner: result[0].linked})
+            .send();
     }
 
     start();
