@@ -177,5 +177,5 @@ module.exports = {
     split,
     get_log_stream,
     clone,
-    update_pagination_params
+    set_pagination_params
 };
