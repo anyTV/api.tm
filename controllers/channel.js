@@ -3,7 +3,7 @@
 const winston = require('winston');
 const util    = require(__dirname + '/../helpers/util');
 const Channel = require(__dirname + '/../models/channel');
-
+const Video   = require(__dirname + '/../models/video');
 
 
 exports.get_channels_by_user = (req, res, next) => {
@@ -69,3 +69,40 @@ exports.partner_status = (req, res, next) => {
 
     start();
 };
+
+
+
+exports.get_unmonetized = (req, res, next) => {
+    req.query.page  = +req.query.page  || 1;
+    req.query.limit = +req.query.limit || 20;
+    req.query.type  =  req.query.type  || 'json';
+
+    function start () {
+        if (!req.query.channel_id) {
+            return res.status(400)
+                     .error({code: 'NOCHANNEL', message: 'No channel field'})
+                     .send();
+        }
+
+        Video.get_unmonetized(req.query, send_response);
+    }
+
+    function send_response (err, result) {
+        if (err) {
+            return next(err);
+        }
+
+        if (!result.length) {
+            return res.status(404)
+                    .error({
+                        code: 'NOVIDS',
+                        message: 'No unmonetized videos'
+                    });
+        }
+
+        res.items(result).send();
+    }
+
+    start();
+};
+

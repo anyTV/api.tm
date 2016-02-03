@@ -14,7 +14,9 @@ module.exports = (router) => {
     router.del = router.delete;
 
     router.get('/channel/:id/partner_status', quota_middleware, __.channel.partner_status);
+    router.get('/channel/unmonetized_videos', __.channel.get_unmonetized);
     router.get('/channel/user',               quota_middleware, __.channel.get_channels_by_user);
+
     router.get('/user/:id',                   quota_middleware, __.user.get_user);
 
     router.all('*', (req, res) => {
