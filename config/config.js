@@ -6,7 +6,7 @@ const path = require('path');
 const config = {
     APP_NAME: 'API.tm',
 
-    PORT: 6969,
+    PORT: 6968,
 
     CORS:  {
         allowed_headers: 'Access-Token, X-Requested-With, Content-Type, Accept',
